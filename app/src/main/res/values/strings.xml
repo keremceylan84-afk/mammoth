@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mammoth Sport</string>
+    <string name="slot_top">Top right</string>
+    <string name="slot_event">Next event</string>
+    <string name="slot_shortcut">Shortcut</string>
+    <string name="unit_km">KM</string>
+    <string name="label_zone">ZONE</string>
+    <string name="weather_unavailable">Weather unavailable</string>
+    <string name="day_1">SU</string>
+    <string name="day_2">MO</string>
+    <string name="day_3">TU</string>
+    <string name="day_4">WE</string>
+    <string name="day_5">TH</string>
+    <string name="day_6">FR</string>
+    <string name="day_7">SA</string>
+</resources>

@@ -1,0 +1,39 @@
+name: Build watch face
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Validate Watch Face Format XML
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p tools/bin
+          gh release view --repo google/watchface --json tagName,assets --jq '.tagName, .assets[].name'
+          gh release download --repo google/watchface --pattern '*validator*.jar' --dir tools/bin --clobber
+          for jar in tools/bin/*validator*.jar; do
+            echo "== $jar"
+            java -jar "$jar" 2 app/src/main/res/raw/watchface.xml
+          done
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: ./gradlew --no-daemon assembleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mammoth-watchface-apk
+          path: app/build/outputs/apk/release/*.apk
