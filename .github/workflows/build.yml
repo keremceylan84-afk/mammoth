@@ -16,17 +16,13 @@ jobs:
           java-version: 17
 
       - name: Validate Watch Face Format XML
-        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p tools/bin
-          gh release view --repo google/watchface --json tagName,assets --jq '.tagName, .assets[].name'
-          gh release download --repo google/watchface --pattern '*validator*.jar' --dir tools/bin --clobber
-          for jar in tools/bin/*validator*.jar; do
-            echo "== $jar"
-            java -jar "$jar" 2 app/src/main/res/raw/watchface.xml
-          done
+          gh release download --repo google/watchface --pattern 'wff-validator.jar' --dir tools/bin --clobber
+          java -jar tools/bin/wff-validator.jar 2 app/src/main/res/raw/watchface.xml | tee validation.log
+          ! grep -q -E 'SEVERE|FAILED' validation.log
 
       - uses: gradle/actions/setup-gradle@v4
 

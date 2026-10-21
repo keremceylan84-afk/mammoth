@@ -614,7 +614,12 @@ def build_face():
                                              "barlow_semibold", "CENTER"))
     face.condition([("[WEATHER.IS_AVAILABLE]", available)], missing)
 
+    # ComplicationSlot must be a direct child of Scene, so lift the slots out of the group.
+    slots = [x for x in face.out if x.startswith("<ComplicationSlot")]
+    face.out = [x for x in face.out if not x.startswith("<ComplicationSlot")]
     face.add('</Group>')
+    for x in slots:
+        face.add(x.replace("</ComplicationSlot>", '<Variant mode="AMBIENT" target="alpha" value="0"/></ComplicationSlot>'))
 
     # Time: always visible, also in ambient mode.
     face.add('<DigitalClock x="98" y="208" width="224" height="76">'

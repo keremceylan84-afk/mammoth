@@ -44,18 +44,6 @@
       <PartImage x="184" y="64" width="66" height="104">
         <Image resource="runner"/>
       </PartImage>
-      <ComplicationSlot x="288" y="48" width="96" height="38" slotId="0" supportedTypes="SHORT_TEXT" isCustomizable="TRUE" displayName="slot_top">
-        <DefaultProviderPolicy defaultSystemProvider="SUNRISE_SUNSET" defaultSystemProviderType="SHORT_TEXT"/>
-        <BoundingBox x="0" y="0" width="96" height="38"/>
-        <Complication type="SHORT_TEXT">
-          <PartImage x="0" y="8" width="22" height="22" tintColor="#ff2bf58c">
-            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
-          </PartImage>
-          <PartText x="26" y="0" width="70" height="38">
-            <Text align="START" ellipsis="TRUE"><Font family="barlow_bold" size="32" color="#ffffffff"><Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
-          </PartText>
-        </Complication>
-      </ComplicationSlot>
       <PartText x="286" y="88" width="84" height="38">
         <Text align="START"><Font family="barlow_bold" size="34" color="#ffffffff"><Template>%.2f<Parameter expression="[STEP_COUNT] * 0.000762"/></Template></Font></Text>
       </PartText>
@@ -85,20 +73,6 @@
         <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Upper><Template>%s %s<Parameter expression="[MONTH_F]"/><Parameter expression="[DAY_Z]"/></Template></Upper></Font></Text>
         <Launch target="CALENDAR"/>
       </PartText>
-      <ComplicationSlot x="212" y="171" width="200" height="24" slotId="1" supportedTypes="LONG_TEXT SHORT_TEXT" isCustomizable="TRUE" displayName="slot_event">
-        <DefaultProviderPolicy defaultSystemProvider="NEXT_EVENT" defaultSystemProviderType="LONG_TEXT"/>
-        <BoundingBox x="0" y="0" width="200" height="24"/>
-        <Complication type="LONG_TEXT">
-          <PartText x="0" y="0" width="200" height="24">
-            <Text align="START" ellipsis="TRUE"><Font family="barlow_semibold" size="17" color="#ffffffff"><Template>%s %s<Parameter expression="[COMPLICATION.TITLE]"/><Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
-          </PartText>
-        </Complication>
-        <Complication type="SHORT_TEXT">
-          <PartText x="0" y="0" width="200" height="24">
-            <Text align="START" ellipsis="TRUE"><Font family="barlow_semibold" size="17" color="#ffffffff"><Template>%s %s<Parameter expression="[COMPLICATION.TITLE]"/><Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
-          </PartText>
-        </Complication>
-      </ComplicationSlot>
       <Condition>
         <Expressions>
           <Expression name="c0"><![CDATA[[DAY_OF_WEEK] == 1]]></Expression>
@@ -350,35 +324,6 @@
           </PartImage>
         </Compare>
       </Condition>
-      <ComplicationSlot x="62" y="342" width="36" height="36" slotId="2" supportedTypes="SMALL_IMAGE MONOCHROMATIC_IMAGE SHORT_TEXT" isCustomizable="TRUE" displayName="slot_shortcut">
-        <DefaultProviderPolicy defaultSystemProvider="APP_SHORTCUT" defaultSystemProviderType="SMALL_IMAGE"/>
-        <BoundingOval x="0" y="0" width="36" height="36"/>
-        <Complication type="SMALL_IMAGE">
-          <PartDraw x="0" y="0" width="36" height="36">
-            <Ellipse x="0" y="0" width="36" height="36">
-              <Fill color="#ff1a1d22"/>
-            </Ellipse>
-          </PartDraw>
-          <PartImage x="6" y="6" width="24" height="24">
-            <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
-          </PartImage>
-        </Complication>
-        <Complication type="MONOCHROMATIC_IMAGE">
-          <PartDraw x="0" y="0" width="36" height="36">
-            <Ellipse x="0" y="0" width="36" height="36">
-              <Fill color="#ff1a1d22"/>
-            </Ellipse>
-          </PartDraw>
-          <PartImage x="8" y="8" width="20" height="20" tintColor="#ff2bf58c">
-            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
-          </PartImage>
-        </Complication>
-        <Complication type="SHORT_TEXT">
-          <PartText x="0" y="0" width="36" height="36">
-            <Text align="CENTER" ellipsis="TRUE"><Font family="barlow_bold" size="14" color="#ff2bf58c"><Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
-          </PartText>
-        </Complication>
-      </ComplicationSlot>
       <Condition>
         <Expressions>
           <Expression name="c0"><![CDATA[[WEATHER.IS_AVAILABLE]]]></Expression>
@@ -854,6 +799,64 @@
         </Default>
       </Condition>
     </Group>
+    <ComplicationSlot x="288" y="48" width="96" height="38" slotId="0" supportedTypes="SHORT_TEXT" isCustomizable="TRUE" displayName="slot_top">
+      <DefaultProviderPolicy defaultSystemProvider="SUNRISE_SUNSET" defaultSystemProviderType="SHORT_TEXT"/>
+      <BoundingBox x="0" y="0" width="96" height="38"/>
+      <Complication type="SHORT_TEXT">
+        <PartImage x="0" y="8" width="22" height="22" tintColor="#ff2bf58c">
+          <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+        </PartImage>
+        <PartText x="26" y="0" width="70" height="38">
+          <Text align="START" ellipsis="TRUE"><Font family="barlow_bold" size="32" color="#ffffffff"><Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
+        </PartText>
+      </Complication>
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+    </ComplicationSlot>
+    <ComplicationSlot x="212" y="171" width="200" height="24" slotId="1" supportedTypes="LONG_TEXT SHORT_TEXT" isCustomizable="TRUE" displayName="slot_event">
+      <DefaultProviderPolicy defaultSystemProvider="NEXT_EVENT" defaultSystemProviderType="LONG_TEXT"/>
+      <BoundingBox x="0" y="0" width="200" height="24"/>
+      <Complication type="LONG_TEXT">
+        <PartText x="0" y="0" width="200" height="24">
+          <Text align="START" ellipsis="TRUE"><Font family="barlow_semibold" size="17" color="#ffffffff"><Template>%s %s<Parameter expression="[COMPLICATION.TITLE]"/><Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
+        </PartText>
+      </Complication>
+      <Complication type="SHORT_TEXT">
+        <PartText x="0" y="0" width="200" height="24">
+          <Text align="START" ellipsis="TRUE"><Font family="barlow_semibold" size="17" color="#ffffffff"><Template>%s %s<Parameter expression="[COMPLICATION.TITLE]"/><Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
+        </PartText>
+      </Complication>
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+    </ComplicationSlot>
+    <ComplicationSlot x="62" y="342" width="36" height="36" slotId="2" supportedTypes="SMALL_IMAGE MONOCHROMATIC_IMAGE SHORT_TEXT" isCustomizable="TRUE" displayName="slot_shortcut">
+      <DefaultProviderPolicy defaultSystemProvider="APP_SHORTCUT" defaultSystemProviderType="SMALL_IMAGE"/>
+      <BoundingOval x="0" y="0" width="36" height="36"/>
+      <Complication type="SMALL_IMAGE">
+        <PartDraw x="0" y="0" width="36" height="36">
+          <Ellipse x="0" y="0" width="36" height="36">
+            <Fill color="#ff1a1d22"/>
+          </Ellipse>
+        </PartDraw>
+        <PartImage x="6" y="6" width="24" height="24">
+          <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
+        </PartImage>
+      </Complication>
+      <Complication type="MONOCHROMATIC_IMAGE">
+        <PartDraw x="0" y="0" width="36" height="36">
+          <Ellipse x="0" y="0" width="36" height="36">
+            <Fill color="#ff1a1d22"/>
+          </Ellipse>
+        </PartDraw>
+        <PartImage x="8" y="8" width="20" height="20" tintColor="#ff2bf58c">
+          <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+        </PartImage>
+      </Complication>
+      <Complication type="SHORT_TEXT">
+        <PartText x="0" y="0" width="36" height="36">
+          <Text align="CENTER" ellipsis="TRUE"><Font family="barlow_bold" size="14" color="#ff2bf58c"><Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template></Font></Text>
+        </PartText>
+      </Complication>
+      <Variant mode="AMBIENT" target="alpha" value="0"/>
+    </ComplicationSlot>
     <DigitalClock x="98" y="208" width="224" height="76">
       <TimeText format="hh:mm" align="END" x="0" y="0" width="224" height="76">
         <Font family="dseg7_bold" size="64" color="#ff2bf58c"/>
