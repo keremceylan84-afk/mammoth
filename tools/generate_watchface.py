@@ -44,9 +44,9 @@ FONTS = {
 # Sample values used only for the preview image.
 SAMPLE = {
     "steps": "7985", "step_pct": "79%", "battery": "74%", "sunrise": "8:24",
-    "distance": "6,08", "hr": "78", "zone": "2", "date": "NOVEMBER 03",
-    "event": "15:15 Team Meeting @ Head Office", "time": "12:48", "sec": "56",
-    "ampm": "PM", "notif": "4",
+    "distance": "6,08", "hr": "78", "zone": "2", "date": "21 EKİM",
+    "event": "15:15 Ekip toplantısı @ Merkez Ofis", "time": "12:48", "sec": "56",
+    "ampm": "ÖS", "notif": "4",
 }
 
 
@@ -474,13 +474,15 @@ def build_face():
     face.p_text(314, 48, 70, 38, SAMPLE["sunrise"], 32, WHITE, "barlow_bold", "START")
 
     # Row 2: distance estimated from steps (0.762 m per step).
-    face.text(286, 88, 84, 38, "%.2f", ["[STEP_COUNT] * 0.000762"], 34, WHITE, "barlow_bold", "START", SAMPLE["distance"])
+    # Built from integer parts so the decimal separator is always a comma.
+    face.text(286, 88, 84, 38, "%d,%02d", ["round(floor([STEP_COUNT] * 762 / 1000000))",
+                                            "round(floor([STEP_COUNT] * 762 / 10000)) % 100"], 34, WHITE, "barlow_bold", "START", SAMPLE["distance"])
     face.text(370, 98, 44, 18, "unit_km", ["0"], 14, GREY, "barlow_bold", "START", "KM")
 
     # Row 3: heart rate with zone.
     face.text(280, 129, 56, 38, "%d", ["round([HEART_RATE])"], 34, WHITE, "barlow_bold", "START", SAMPLE["hr"],
               launch="HEALTH_HEART_RATE")
-    face.text(336, 128, 44, 18, "label_zone", ["0"], 13, GREY, "barlow_bold", "START", "ZONE")
+    face.text(336, 128, 44, 18, "label_zone", ["0"], 13, GREY, "barlow_bold", "START", "BÖLGE")
     zone = ("[HEART_RATE] &lt; 100 ? 1 : ([HEART_RATE] &lt; 120 ? 2 : ([HEART_RATE] &lt; 140 ? 3 : "
             "([HEART_RATE] &lt; 160 ? 4 : 5)))").replace("&lt;", "<")
     face.text(378, 124, 24, 24, "%d", [zone], 20, GREEN, "barlow_bold", "START", SAMPLE["zone"])
@@ -493,8 +495,11 @@ def build_face():
     face.pd.rounded_rectangle((336, 151, 336 + 7 + 69 * 38 / 150, 158), radius=3.5, fill=argb_to_rgba(GREEN))
 
     # Date and next event.
-    face.text(52, 169, 150, 26, "%s %s", ["[MONTH_F]", "[DAY_Z]"], 21, WHITE, "barlow_bold", "START",
-              SAMPLE["date"], upper=True, launch="CALENDAR")
+    # Month names come from string resources so they are Turkish whatever the device language.
+    face.condition([("[MONTH] == %d" % m, face.capture(lambda m=m: face.text(
+        52, 169, 150, 26, "month_%d" % m, ["[DAY]"], 21, WHITE, "barlow_bold", "START", launch="CALENDAR")))
+        for m in range(1, 13)])
+    face.p_text(52, 169, 150, 26, SAMPLE["date"], 21, WHITE, "barlow_bold", "START")
     face.add(
         '<ComplicationSlot x="212" y="171" width="200" height="24" slotId="1" supportedTypes="LONG_TEXT SHORT_TEXT" '
         'isCustomizable="TRUE" displayName="slot_event">'
@@ -521,10 +526,10 @@ def build_face():
             face.text(44, y, 58, 18, "day_%d" % i, ["0"], 16, WHITE, "barlow_bold", "START")))
         idle = face.capture(lambda y=y, i=i: face.text(48, y, 54, 18, "day_%d" % i, ["0"], 14, DIM, "barlow_bold", "START"))
         face.condition([("[DAY_OF_WEEK] == %d" % i, active)], idle)
-    sample_days = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"]
+    sample_days = ["PZ", "PT", "SA", "ÇA", "PE", "CU", "CT"]
     for i, lbl in enumerate(sample_days):
         y = 200 + i * 19
-        if i == 1:
+        if i == 3:
             face.pd.rounded_rectangle((40, y, 104, y + 18), radius=5, fill=(35, 39, 45, 255))
             face.pd.rectangle((34, y + 4, 39, y + 14), fill=argb_to_rgba(RED))
             face.p_text(44, y, 58, 18, lbl, 16, WHITE, "barlow_bold", "START")
@@ -540,7 +545,10 @@ def build_face():
                  'cornerRadiusX="13" cornerRadiusY="13"><Fill color="#ff102a1d"/></RoundRectangle>'
                  '<RoundRectangle x="1" y="1" width="56" height="24" cornerRadiusX="12" cornerRadiusY="12">'
                  '<Stroke color="#ff1f6b45" thickness="1.5"/></RoundRectangle></PartDraw>'),
-        face.text(330, 204, 58, 26, "%s", ["[AMPM_STRING]"], 19, GREEN, "barlow_bold", "CENTER")), preview=False)
+        face.condition([("[AMPM_STATE] == 0", face.capture(lambda: face.text(
+            330, 204, 58, 26, "label_am", ["0"], 19, GREEN, "barlow_bold", "CENTER")))],
+            face.capture(lambda: face.text(330, 204, 58, 26, "label_pm", ["0"], 19, GREEN, "barlow_bold", "CENTER")))),
+        preview=False)
     face.condition([("![IS_24_HOUR_MODE]", ampm)])
     face.pd.rounded_rectangle((330, 204, 388, 230), radius=13, fill=(16, 42, 29, 255), outline=(31, 107, 69, 255))
     face.p_text(330, 204, 58, 26, SAMPLE["ampm"], 19, GREEN, "barlow_bold", "CENTER")
@@ -584,7 +592,7 @@ def build_face():
     # Weather (Watch Face Format v2 data).
     def weather():
         cols = [172, 258, 344]
-        sample_fc = [("TUE", "sun", "72°"), ("WED", "rain", "64°"), ("THU", "partly_day", "55°")]
+        sample_fc = [("PE", "sun", "22°"), ("CU", "rain", "18°"), ("CT", "partly_day", "13°")]
         for k, cx in enumerate(cols, start=1):
             idx = "WEATHER.DAYS.%d" % k
 
@@ -604,10 +612,10 @@ def build_face():
             face.p_image(cx - 42, 316, 36, 36, icon)
             face.p_text(cx - 4, 313, 52, 40, temp, 32, WHITE, "barlow_bold", "START")
 
-        face.text(100, 352, 112, 68, "%d°", ["[WEATHER.TEMPERATURE]"], 66, WHITE, "barlow_bold", "END", "58°")
+        face.text(100, 352, 112, 68, "%d°", ["[WEATHER.TEMPERATURE]"], 66, WHITE, "barlow_bold", "END", "14°")
         weather_icon(face, 212, 344, 78, "[WEATHER.CONDITION]", is_day="[WEATHER.IS_DAY]", sample="partly_day")
         face.text(292, 362, 92, 36, "%d/%d", ["[WEATHER.DAY_TEMPERATURE_HIGH]", "[WEATHER.DAY_TEMPERATURE_LOW]"],
-                  30, WHITE, "barlow_bold", "START", "62/44")
+                  30, WHITE, "barlow_bold", "START", "17/7")
 
     available = face.capture(weather, preview=True)
     missing = face.capture(lambda: face.text(120, 352, 210, 40, "weather_unavailable", ["0"], 18, GREY,

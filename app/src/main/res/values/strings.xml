@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mammoth Sport</string>
-    <string name="slot_top">Top right</string>
-    <string name="slot_event">Next event</string>
-    <string name="slot_shortcut">Shortcut</string>
+    <string name="slot_top">Sağ üst</string>
+    <string name="slot_event">Sonraki etkinlik</string>
+    <string name="slot_shortcut">Kısayol</string>
     <string name="unit_km">KM</string>
-    <string name="label_zone">ZONE</string>
-    <string name="weather_unavailable">Weather unavailable</string>
-    <string name="day_1">SU</string>
-    <string name="day_2">MO</string>
-    <string name="day_3">TU</string>
-    <string name="day_4">WE</string>
-    <string name="day_5">TH</string>
-    <string name="day_6">FR</string>
-    <string name="day_7">SA</string>
+    <string name="label_zone">BÖLGE</string>
+    <string name="label_am">ÖÖ</string>
+    <string name="label_pm">ÖS</string>
+    <string name="weather_unavailable">Hava durumu yok</string>
+    <string name="day_1">PZ</string>
+    <string name="day_2">PT</string>
+    <string name="day_3">SA</string>
+    <string name="day_4">ÇA</string>
+    <string name="day_5">PE</string>
+    <string name="day_6">CU</string>
+    <string name="day_7">CT</string>
+    <string name="month_1">%1$s OCAK</string>
+    <string name="month_2">%1$s ŞUBAT</string>
+    <string name="month_3">%1$s MART</string>
+    <string name="month_4">%1$s NİSAN</string>
+    <string name="month_5">%1$s MAYIS</string>
+    <string name="month_6">%1$s HAZİRAN</string>
+    <string name="month_7">%1$s TEMMUZ</string>
+    <string name="month_8">%1$s AĞUSTOS</string>
+    <string name="month_9">%1$s EYLÜL</string>
+    <string name="month_10">%1$s EKİM</string>
+    <string name="month_11">%1$s KASIM</string>
+    <string name="month_12">%1$s ARALIK</string>
 </resources>

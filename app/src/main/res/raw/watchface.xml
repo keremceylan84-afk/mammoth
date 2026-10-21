@@ -45,7 +45,7 @@
         <Image resource="runner"/>
       </PartImage>
       <PartText x="286" y="88" width="84" height="38">
-        <Text align="START"><Font family="barlow_bold" size="34" color="#ffffffff"><Template>%.2f<Parameter expression="[STEP_COUNT] * 0.000762"/></Template></Font></Text>
+        <Text align="START"><Font family="barlow_bold" size="34" color="#ffffffff"><Template>%d,%02d<Parameter expression="round(floor([STEP_COUNT] * 762 / 1000000))"/><Parameter expression="round(floor([STEP_COUNT] * 762 / 10000)) % 100"/></Template></Font></Text>
       </PartText>
       <PartText x="370" y="98" width="44" height="18">
         <Text align="START"><Font family="barlow_bold" size="14" color="#ff8a9099"><Template>unit_km<Parameter expression="0"/></Template></Font></Text>
@@ -69,10 +69,94 @@
           <Transform target="width" value="7 + 69 * clamp(([HEART_RATE] - 40) / 150, 0, 1)"/>
         </RoundRectangle>
       </PartDraw>
-      <PartText x="52" y="169" width="150" height="26">
-        <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Upper><Template>%s %s<Parameter expression="[MONTH_F]"/><Parameter expression="[DAY_Z]"/></Template></Upper></Font></Text>
-        <Launch target="CALENDAR"/>
-      </PartText>
+      <Condition>
+        <Expressions>
+          <Expression name="c0"><![CDATA[[MONTH] == 1]]></Expression>
+          <Expression name="c1"><![CDATA[[MONTH] == 2]]></Expression>
+          <Expression name="c2"><![CDATA[[MONTH] == 3]]></Expression>
+          <Expression name="c3"><![CDATA[[MONTH] == 4]]></Expression>
+          <Expression name="c4"><![CDATA[[MONTH] == 5]]></Expression>
+          <Expression name="c5"><![CDATA[[MONTH] == 6]]></Expression>
+          <Expression name="c6"><![CDATA[[MONTH] == 7]]></Expression>
+          <Expression name="c7"><![CDATA[[MONTH] == 8]]></Expression>
+          <Expression name="c8"><![CDATA[[MONTH] == 9]]></Expression>
+          <Expression name="c9"><![CDATA[[MONTH] == 10]]></Expression>
+          <Expression name="c10"><![CDATA[[MONTH] == 11]]></Expression>
+          <Expression name="c11"><![CDATA[[MONTH] == 12]]></Expression>
+        </Expressions>
+        <Compare expression="c0">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_1<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c1">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_2<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c2">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_3<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c3">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_4<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c4">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_5<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c5">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_6<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c6">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_7<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c7">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_8<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c8">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_9<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c9">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_10<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c10">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_11<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+        <Compare expression="c11">
+          <PartText x="52" y="169" width="150" height="26">
+            <Text align="START"><Font family="barlow_bold" size="21" color="#ffffffff"><Template>month_12<Parameter expression="[DAY]"/></Template></Font></Text>
+            <Launch target="CALENDAR"/>
+          </PartText>
+        </Compare>
+      </Condition>
       <Condition>
         <Expressions>
           <Expression name="c0"><![CDATA[[DAY_OF_WEEK] == 1]]></Expression>
@@ -250,9 +334,21 @@
               <Stroke color="#ff1f6b45" thickness="1.5"/>
             </RoundRectangle>
           </PartDraw>
-          <PartText x="330" y="204" width="58" height="26">
-            <Text align="CENTER"><Font family="barlow_bold" size="19" color="#ff2bf58c"><Template>%s<Parameter expression="[AMPM_STRING]"/></Template></Font></Text>
-          </PartText>
+          <Condition>
+            <Expressions>
+              <Expression name="c0"><![CDATA[[AMPM_STATE] == 0]]></Expression>
+            </Expressions>
+            <Compare expression="c0">
+              <PartText x="330" y="204" width="58" height="26">
+                <Text align="CENTER"><Font family="barlow_bold" size="19" color="#ff2bf58c"><Template>label_am<Parameter expression="0"/></Template></Font></Text>
+              </PartText>
+            </Compare>
+            <Default>
+              <PartText x="330" y="204" width="58" height="26">
+                <Text align="CENTER"><Font family="barlow_bold" size="19" color="#ff2bf58c"><Template>label_pm<Parameter expression="0"/></Template></Font></Text>
+              </PartText>
+            </Default>
+          </Condition>
         </Compare>
       </Condition>
       <DigitalClock x="328" y="232" width="68" height="60">

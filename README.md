@@ -9,12 +9,13 @@ Watch Face Format (WFF v2) ile yazılmış, sportif ve dijital bir saat kadranı
 - Yeşil 7 segmentli saat (12 veya 24 saat, telefon ayarına göre), saniye ve AM/PM
 - Adım sayısı, hedef yüzdesi ve hedef yayı
 - Adımdan tahmini mesafe (km)
-- Nabız, bölge (ZONE 1–5) ve bölge çubuğu
+- Nabız, bölge (BÖLGE 1–5) ve bölge çubuğu
 - Saat pili yayı ve yüzdesi
 - Ay ve gün, haftanın günü listesi, okunmamış bildirim sayısı, ay evresi
 - Hava durumu: anlık sıcaklık, en yüksek/en düşük ve 3 günlük tahmin
 - Düzenlenebilir 3 komplikasyon: sağ üst (varsayılan gün doğumu/batımı), sonraki etkinlik, sol alt kısayol
 - Ortam (AOD) modunda yalnızca saat gösterilir
+- Kadrandaki tüm yazılar Türkçedir (ay ve gün adları, ÖÖ/ÖS, BÖLGE), saatin dil ayarından bağımsız olarak. Komplikasyon metinleri, örneğin etkinlik adı, ilgili uygulamadan geldiği gibi gösterilir.
 
 Gereksinim: **Wear OS 5 veya üzeri** (Galaxy Watch4 ve sonrası, One UI 6 Watch güncellemesiyle).
 
