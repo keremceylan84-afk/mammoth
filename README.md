@@ -6,7 +6,7 @@ Watch Face Format (WFF v2) ile yazılmış, sportif ve dijital bir saat kadranı
 
 ## Kadranda neler var
 
-- Yeşil 7 segmentli saat (12 veya 24 saat, telefon ayarına göre), saniye ve AM/PM
+- Yeşil 7 segmentli saat (12 veya 24 saat, telefon ayarına göre), saniye ve ÖÖ/ÖS
 - Adım sayısı, hedef yüzdesi ve hedef yayı
 - Adımdan tahmini mesafe (km)
 - Nabız, bölge (BÖLGE 1–5) ve bölge çubuğu
