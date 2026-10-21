@@ -23,6 +23,11 @@ Gereksinim: **Wear OS 5 veya üzeri** (Galaxy Watch4 ve sonrası, One UI 6 Watch
 
 Her push'ta GitHub Actions APK'yı derler.
 
+Doğrudan indirme linki (her zaman en son sürüm):
+https://github.com/keremceylan84-afk/mammoth/releases/download/apk/mammoth-sport.apk
+
+Alternatif olarak:
+
 1. GitHub'da depodaki **Actions** sekmesini açın ve "Build watch face" çalıştırmasını seçin.
 2. Sayfanın altındaki **Artifacts** bölümünden `mammoth-watchface-apk` dosyasını indirin.
 3. Zip'i açın; içinden `app-release.apk` çıkar.

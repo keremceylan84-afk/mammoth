@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,3 +36,16 @@ jobs:
         with:
           name: mammoth-watchface-apk
           path: app/build/outputs/apk/release/*.apk
+
+      # Rolling "apk" release: always holds the latest build at a fixed download URL.
+      - name: Publish APK to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk mammoth-sport.apk
+          git tag -f apk "$GITHUB_SHA"
+          git push -f origin refs/tags/apk
+          gh release view apk >/dev/null 2>&1 || \
+            gh release create apk --title "Mammoth Sport APK" \
+              --notes "Latest build: https://github.com/${{ github.repository }}/releases/download/apk/mammoth-sport.apk"
+          gh release upload apk mammoth-sport.apk --clobber
